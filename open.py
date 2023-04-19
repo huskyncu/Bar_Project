@@ -14,6 +14,7 @@ def read_code(img):
         return 'yes'
     elif 'price' in data:
         print("data",data)
+        #以下連接fire base
         return 'yes'
 
 # 指定你的chrome路徑
