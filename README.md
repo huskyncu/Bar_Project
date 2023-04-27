@@ -1,4 +1,4 @@
-# Bar_Project
+# 專題架構圖
 
 ###### tags: `資工`
 
@@ -9,7 +9,7 @@
 * arduino
 * linklt 7697
 ### 軟體
-* Server：python GUI exe
+* Server：python GUI
 * Client：android app
 * Database：firebase
 
@@ -42,7 +42,7 @@ graph TD;
 溫溼度感測器-->|如果濕度小於90%|使用馬達關窗;
 超音波感測器-->|如果偵測距離大於10|使用伺服馬達關門;
 大門-->超音波感測器-->|如果偵測距離小於10|使用伺服馬達開門-->|亮LED燈|帶位;
-帶位-->到座位上後-->|體溫比較高|LED關燈
+帶位-->到座位上後-->|偵測坐下來的距離小於10|LED關燈
 顧客手機app-->顧客模式;
 顧客模式-->點歌-->|socket|pythonserver;
 顧客模式-->點餐-->語音化服務-->客製化點酒-->|socket|pythonserver;
@@ -65,9 +65,9 @@ python_server-->|mssql|收支資料表
 
 ## 時程表
 
-### 第一次開會
+### 第一次開會(5/8)
 
-* 完成 大門與帶位的arduino
+* 完成 大門與帶位的arduino(功能建立)
 * python GUI 撰寫完成
 * python GUI 能夠串接firebase資料庫
 * python GUI 能下載csv
@@ -75,14 +75,14 @@ python_server-->|mssql|收支資料表
 
 ### 第二次開會
 * android app 撰寫完成
+* ANDROID APP 客製化點酒
 * 完成 android app socket 連接 python GUI
 * 語音化訊息處理
 
 ### 第三次開會
-* 客製化點酒
 * android app點歌與python 串接 youtube點歌
 
 ### 第四次開會
-* 天窗 arduino 處理
-* 最後細修
+* 天窗 arduino 處理(功能建立)
+* 實行美工，將所有硬體安裝進模型裡面。
 
