@@ -1,14 +1,12 @@
 #include <Servo.h>
 #include "Ultrasonic.h"
-#include "DHT.h"
 
-DHT __dht2(3, DHT22);
-
-int range;
+int range1;
+int range2;
 int sit=0;
-int tmp;
 
 Ultrasonic __ultrasonic2(2);
+Ultrasonic __ultrasonic3(3);
 Servo __myservo10;
 
 void setup()
@@ -18,42 +16,41 @@ void setup()
   pinMode(13,OUTPUT);
   __myservo10.attach(10);
   Serial.begin(9600);
-  __dht2.begin();
 }
 
 void loop()
 {
-  range = __ultrasonic2.MeasureInCentimeters();
-  Serial.print("距離 : ");
-  Serial.println(range);
-  Serial.print("攝氏溫度 : ");
-  Serial.println(__dht2.readTemperature());
-  if (range < 5) {
+  range1 = __ultrasonic2.MeasureInCentimeters();
+  Serial.print("大門距離 : ");
+  Serial.println(range1);
+  range2 = __ultrasonic3.MeasureInCentimeters();
+  Serial.print("座位距離 : ");
+  Serial.println(range2);
+  if (range1 < 5) {
     __myservo10.write(0);
-    delay(5000);
+    delay(3000);
   } else {
     __myservo10.write(90);
   }
   if(sit==0){
     digitalWrite(11,HIGH);
+    digitalWrite(12,LOW);
+    digitalWrite(13,HIGH);
+  }else{
+    digitalWrite(11,HIGH);
     digitalWrite(12,HIGH);
     digitalWrite(13,LOW);
-  }else{
-    digitalWrite(11,LOW);
-    digitalWrite(12,LOW);
-    digitalWrite(13,LOW);
   }
-  if(__dht2.readTemperature()>tmp){
+  if(range2 < 6){
+    sit=1;
     Serial.println("sit");
-  }
-  else if(__dht2.readTemperature()<tmp){
-    sit=0;
-    Serial.println("not sit");
-  }
-  else{
     
   }
-  tmp=__dht2.readTemperature();
+  else{
+    sit=0;
+    Serial.println("not sit");
+    
+  }
   delay(1000);
   
 }
