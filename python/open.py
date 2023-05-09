@@ -13,11 +13,10 @@ def read_code(img):
         ans = messagebox.askyesno("訊息",'已新增進資料庫，請問是否繼續新增？')
         if ans == False:
             return ans
-        
-            
+
     
 
-# 指定你的chrome路徑
+
 def open_():
     # 選擇第二隻攝影機
     cap = cv2.VideoCapture(0)
@@ -30,6 +29,9 @@ def open_():
         # 顯示圖片
         # 若按下 q 鍵則離開迴圈
         if cv2.waitKey(1) and read_code(frame)==False:
+            break
+        if cv2.waitKey(1)==ord('q'):
+            cv2.destroyAllWindows()
             break
 
     # 釋放攝影機
