@@ -3,10 +3,11 @@ import threading
 import json
 from firebase import firebase 
 from facedetect import register,login
+from face_identify import identify
 import multiprocessing
 
 # 服务器配置
-HOST = '192.168.10.70'  # 服务器IP地址
+HOST = '172.20.10.3'  # 服务器IP地址
 PORT = 7100  # 服务器端口号
 
 # 用于存储连接的客户端信息
@@ -75,9 +76,19 @@ def handle_client(client_socket, client_address):
                                 json_data +='\n'
                                 client.sendall(json_data.encode('utf-8'))  # send json data
                     #queue.put(v)
-                    l,i,a,u = v.split()
+                    u = v
                     print(f'ip:{client_address[0]}, user:{u} has login')
                     send_message_to_db(f'ip:{client_address[0]}, user:{u} has login')
+                elif (command[0]=="face_indentify"):
+                    v = identify(command[1])
+                    with lock:
+                    # 向所有其他客户端广播数据
+                        for client in clients:
+                            if client == client_socket:
+                                my_dict = v  # create your dictionary here
+                                json_data = json.dumps(my_dict)  # convert dictionary to json
+                                json_data +='\n'
+                                client.sendall(json_data.encode('utf-8'))  # send json data
             else:
                 # 客户端断开连接
                 remove_client(client_socket)

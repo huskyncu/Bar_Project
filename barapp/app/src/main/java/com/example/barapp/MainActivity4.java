@@ -1,15 +1,16 @@
 package com.example.barapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
+import androidx.appcompat.app.AppCompatActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedReader;
@@ -18,33 +19,73 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Iterator;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity4 extends AppCompatActivity {
 
-    private Button start_btn;
-    private TextView textView;
+    private Button sendButton;
+    private Button identify_btn;
+    private TextView responseTextView;
+    private ListView listView;
+    private ArrayList<String> listData = new ArrayList<>();
+    private ArrayAdapter<String> adapter;
+
     private Socket socket;
     private BufferedReader in;
     private BufferedWriter out;
+
+    private Handler handler = new Handler(Looper.getMainLooper());
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main4);
 
-        start_btn = findViewById(R.id.start_btn);
-        textView = findViewById(R.id.textView);
+        sendButton = findViewById(R.id.sendButton);
+        identify_btn = findViewById(R.id.identify_btn);
+        responseTextView = findViewById(R.id.responseTextView);
+        listView = findViewById(R.id.listView);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listData);
+        listView.setAdapter(adapter);
+        // 获取传递过来的Intent
+        Intent intent = getIntent();
+        // 检查Intent是否包含附带的Bundle
+        if (intent != null && intent.getExtras() != null) {
+            // 从Intent中获取Bundle对象
+            Bundle bundle = intent.getExtras();
 
-        start_btn.setOnClickListener(new View.OnClickListener() {
+            // 从Bundle中获取字符串数据
+            String message = bundle.getString("key");
+
+            // 使用获取到的字符串数据进行操作
+            if (message != null) {
+                // 执行操作
+                responseTextView.setText(message);
+
+            }
+        }
+
+        // 當用戶點擊發送按鈕時，將用戶輸入的消息通過 socket 傳遞到 Python 服務器
+        sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                String message = "startprogram 1";
-                if (!message.isEmpty()) {
-                    sendToServer(message);
-                    //textView.setText("0.0");
-                }
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                String message = responseTextView.getText().toString();
+                bundle.putString("key", message);
+                // 执行打开Activity2的代码
+                Intent intent = new Intent(MainActivity4.this, MainActivity3.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
+        identify_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendToServer("face_indentify "+responseTextView.getText().toString());
+            }
+        });
+
         // 建立 socket 連接，並在單獨的線程中監聽服務器的回應
         new Thread(new Runnable() {
             @Override
@@ -65,31 +106,15 @@ public class MainActivity extends AppCompatActivity {
                                 while(keys.hasNext()) {
                                     String key = keys.next();
                                     String value = jsonObject.getString(key);
-                                    if (key.equals("startprogram") && value.equals("1")) {
-                                        runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                Log.d("Message", "77777");
-                                                // 执行打开Activity2的代码
-
-                                                Intent intent = new Intent(MainActivity.this, MainActivity2.class);
-
-                                                startActivity(intent);
-                                                Toast.makeText(MainActivity.this, "Welcome", Toast.LENGTH_LONG).show();
-                                                //closeSocketAndOpenActivity2();
-                                            }
-                                        });
-                                    } else if(key.equals("startprogram")){
-                                        runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                Log.d("Message", "no sit");
-                                                Toast.makeText(MainActivity.this, "no sit", Toast.LENGTH_LONG).show();
-
-                                            }
-                                        });
-                                    }
+                                    listData.add(key + ": " + value);
                                 }
+                                handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Log.d("UI Thread", "Updating UI");
+                                        adapter.notifyDataSetChanged();
+                                    }
+                                });
                             }
                             else{
                                 Log.d("Message", "nothing");
@@ -127,27 +152,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }).start();
     }
-    private void closeSocketAndOpenActivity2() {
-        /*try {
-            if (in != null) {
-                in.close();
-            }
-            if (out != null) {
-                out.close();
-            }
-            if (socket != null) {
-                socket.close();
-            }
-            Log.d("Message", "77777");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-        Log.d("Message", "77777");
-        // 执行打开Activity2的代码
-        Intent intent = new Intent(MainActivity.this, MainActivity2.class);
 
-        startActivity(intent);
-    }
     // 通過 socket 將消息傳遞到服務器
     private void sendToServer(String message) {
         new Thread(new Runnable() {
@@ -186,3 +191,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
+

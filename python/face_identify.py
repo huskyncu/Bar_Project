@@ -20,7 +20,7 @@ def identify(msgID):
     print(access_token)
 
     import base64
-    img_src = (os.getcwd() + '\\src\\image\\' + msgID + '.jpg')
+    img_src = (os.getcwd() + '\\user_images\\' + msgID + '.jpg')
     with open(img_src, 'rb') as f:
         base64_data = base64.b64encode(f.read())
 

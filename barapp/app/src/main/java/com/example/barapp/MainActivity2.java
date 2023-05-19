@@ -63,7 +63,7 @@ public class MainActivity2 extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    socket = new Socket("192.168.10.70", 7100);
+                    socket = new Socket("172.20.10.3", 7100);
                     in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                     out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
@@ -78,25 +78,35 @@ public class MainActivity2 extends AppCompatActivity {
                                 while(keys.hasNext()) {
                                     String key = keys.next();
                                     String value = jsonObject.getString(key);
-                                    if (key.equals("register") && value.equals("success")) {
+                                    if (key.equals("register") && !value.equals("error")) {
                                         runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
                                                 Log.d("Message", "register success");
+                                                // 创建一个Bundle对象
+                                                Bundle bundle = new Bundle();
+                                                String message = value;
+                                                bundle.putString("key", message);
                                                 // 执行打开Activity2的代码
                                                 Intent intent = new Intent(MainActivity2.this, MainActivity3.class);
+                                                intent.putExtras(bundle);
                                                 startActivity(intent);
                                                 //closeSocketAndOpenActivity2();
                                                 Toast.makeText(MainActivity2.this, value, Toast.LENGTH_LONG).show();
                                             }
                                         });
-                                    } else if (key.equals("login") && value.contains("as")) {
+                                    } else if (key.equals("login") && !value.equals("error")&& !value.equals("No Data")) {
                                         runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
                                                 Log.d("Message", value);
+                                                // 创建一个Bundle对象
+                                                Bundle bundle = new Bundle();
+                                                String message = value;
+                                                bundle.putString("key", message);
                                                 Toast.makeText(MainActivity2.this, value, Toast.LENGTH_LONG).show();
                                                 Intent intent = new Intent(MainActivity2.this, MainActivity3.class);
+                                                intent.putExtras(bundle);
                                                 startActivity(intent);
                                                 //closeSocketAndOpenActivity2();
                                                 //Toast.makeText(MainActivity2.this, value, Toast.LENGTH_LONG).show();

@@ -29,23 +29,14 @@
         app:layout_constraintTop_toBottomOf="@+id/music_text" />
 
     <Button
-        android:id="@+id/register_btn"
-        android:layout_width="101dp"
-        android:layout_height="59dp"
-        android:layout_marginStart="113dp"
-        android:layout_marginTop="39dp"
-        android:text="會員註冊"
-        app:layout_constraintStart_toEndOf="@+id/music_text"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/login_btn"
+        android:id="@+id/detail_btn"
         android:layout_width="102dp"
         android:layout_height="55dp"
         android:layout_marginStart="112dp"
-        android:text="登入"
+        android:layout_marginTop="1dp"
+        android:text="詳細內容"
         app:layout_constraintStart_toEndOf="@+id/music_btn"
-        app:layout_constraintTop_toBottomOf="@+id/register_btn" />
+        app:layout_constraintTop_toBottomOf="@+id/username" />
 
     <Button
         android:id="@+id/pay_btn"
@@ -65,7 +56,7 @@
         android:layout_marginTop="108dp"
         android:text="我要點酒"
         app:layout_constraintStart_toEndOf="@+id/pay_btn"
-        app:layout_constraintTop_toBottomOf="@+id/login_btn" />
+        app:layout_constraintTop_toBottomOf="@+id/detail_btn" />
 
     <Button
         android:id="@+id/speech_btn"
@@ -76,5 +67,15 @@
         android:text="說話"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pay_btn" />
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="102dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="115dp"
+        android:layout_marginTop="49dp"
+        android:text="username"
+        app:layout_constraintStart_toEndOf="@+id/music_text"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

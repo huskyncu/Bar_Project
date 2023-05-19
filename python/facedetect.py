@@ -40,7 +40,7 @@ def train_model():
 def register(user_name):
     #print(user_name_to_label)
     global next_label
-    cap = cv2.VideoCapture(1)
+    cap = cv2.VideoCapture(0)
     count = 0
     islog=0
     while count < 10:
@@ -96,15 +96,15 @@ def register(user_name):
     # 更新臉部辨識模型
     if islog==0:
         train_model()
-        return "success" 
+        return user_name 
     else:
-        return user_name + " has been registed"
+        return "error"
 
 def login():
     if not face_data:
         print("無資料")
         return "No Data"
-    cap = cv2.VideoCapture(1)
+    cap = cv2.VideoCapture(0)
     islog=1
     while islog:
         ret, frame = cap.read()
@@ -119,6 +119,7 @@ def login():
                 for user_name, user_label in user_name_to_label.items():
                     if user_label == label:
                         print("Logged in as", user_name)
+                        cv2.imwrite(f"user_images/{user_name}.jpg", roi_gray)
                         message = "Logged in as "+user_name
                         islog=0
                         break
@@ -132,7 +133,10 @@ def login():
             break
     cap.release()
     cv2.destroyAllWindows()
-    return message
+    if message=="no user":
+        return "error"
+    else:
+        return user_name
 
 def delete_user(user_name):
     if user_name not in user_name_to_label:
