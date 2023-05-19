@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk,messagebox
+from firebase import firebase
 import refrige
 import menu
 import open
@@ -26,6 +27,17 @@ def main():
     label_q.place(relx=0.5,rely=0.7,anchor="center")
     close_button = tk.Button(wnd, text="close",underline=-1,command=wnd.destroy)
     close_button.place(relx=0.7,rely=0.9,anchor="center")
+    def update_gui():
+        url = "https://python-database-3b3f8-default-rtdb.firebaseio.com/"
+        fdb = firebase.FirebaseApplication(url, None)
+        message = fdb.get('/togui/now',None)
+        previous = fdb.get('/togui/tmp',None)
+        if message!=previous:
+            text.insert('end',message+'\n')
+            fdb.put('/togui','tmp',message)
+        wnd.after(10,update_gui)
+        
+    update_gui()
     wnd.mainloop()
 if __name__ == '__main__':
     main()

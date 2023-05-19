@@ -14,6 +14,11 @@ clients = []
 # 创建锁，用于同步访问clients列表
 lock = threading.Lock()
 
+def send_message_to_db(message):
+    url = "https://python-database-3b3f8-default-rtdb.firebaseio.com/"
+    fdb = firebase.FirebaseApplication(url, None)    # 初始化，第二個參數作用在負責使用者登入資訊，通常設定為 None
+    fdb.put('/togui','now',message)
+
 def handle_client(client_socket, client_address):
     while True:
         try:
@@ -43,6 +48,8 @@ def handle_client(client_socket, client_address):
                                 json_data +='\n'
                                 client.sendall(json_data.encode('utf-8'))  # send json data
                     #queue.put(f'{client_address} get in')
+                    print(f'{client_address[0]} get in')
+                    send_message_to_db(f'{client_address[0]} get in')
                 elif (command[0]=="register"):
                     v = register(command[1])
                     
@@ -55,6 +62,7 @@ def handle_client(client_socket, client_address):
                                 json_data +='\n'
                                 client.sendall(json_data.encode('utf-8'))  # send json data
                     #queue.put(v)
+                    send_message_to_db(v)
                 elif (command[0]=="login"):
                     v = login()
                     
@@ -67,10 +75,14 @@ def handle_client(client_socket, client_address):
                                 json_data +='\n'
                                 client.sendall(json_data.encode('utf-8'))  # send json data
                     #queue.put(v)
+                    l,i,a,u = v.split()
+                    print(f'ip:{client_address[0]}, user:{u} has login')
+                    send_message_to_db(f'ip:{client_address[0]}, user:{u} has login')
             else:
                 # 客户端断开连接
                 remove_client(client_socket)
                 print(f"Client {client_address} disconnected")
+                send_message_to_db(f"Client {client_address} disconnected")
                 break
         except ConnectionResetError:
             # 客户端强制断开连接
