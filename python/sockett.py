@@ -7,7 +7,7 @@ from face_identify import identify
 import multiprocessing
 
 # 服务器配置
-HOST = '172.20.10.3'  # 服务器IP地址
+HOST = '192.168.10.70'  # 服务器IP地址
 PORT = 7100  # 服务器端口号
 
 # 用于存储连接的客户端信息
@@ -50,7 +50,7 @@ def handle_client(client_socket, client_address):
                                 client.sendall(json_data.encode('utf-8'))  # send json data
                     #queue.put(f'{client_address} get in')
                     print(f'{client_address[0]} get in')
-                    send_message_to_db(f'{client_address[0]} get in')
+                    send_message_to_db(f'{client_address[0]} get in.')
                 elif (command[0]=="register"):
                     v = register(command[1])
                     
@@ -63,7 +63,10 @@ def handle_client(client_socket, client_address):
                                 json_data +='\n'
                                 client.sendall(json_data.encode('utf-8'))  # send json data
                     #queue.put(v)
-                    send_message_to_db(v)
+                    if v!='error':
+                        send_message_to_db(f"ip:{client_address[0]}, user :{v} register success.")
+                    else:
+                        send_message_to_db(f"ip:{client_address[0]}, user :{v} register fail.")
                 elif (command[0]=="login"):
                     v = login()
                     
@@ -78,7 +81,10 @@ def handle_client(client_socket, client_address):
                     #queue.put(v)
                     u = v
                     print(f'ip:{client_address[0]}, user:{u} has login')
-                    send_message_to_db(f'ip:{client_address[0]}, user:{u} has login')
+                    if u!='error':
+                        send_message_to_db(f'ip:{client_address[0]}, user:{u} has login.')
+                    else:
+                        send_message_to_db(f'ip:{client_address[0]}, fail to login.')
                 elif (command[0]=="face_indentify"):
                     v = identify(command[1])
                     with lock:
@@ -134,5 +140,4 @@ def main():
         client_thread.start()
 
 if __name__ == '__main__':
-    #queue = multiprocessing.Queue()
     main()

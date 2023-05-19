@@ -35,7 +35,7 @@ def main():
         if message!=previous:
             text.insert('end',message+'\n')
             fdb.put('/togui','tmp',message)
-        wnd.after(10,update_gui)
+        wnd.after(1000,update_gui)
         
     update_gui()
     wnd.mainloop()

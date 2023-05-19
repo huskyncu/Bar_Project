@@ -63,7 +63,7 @@ public class MainActivity2 extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    socket = new Socket("172.20.10.3", 7100);
+                    socket = new Socket("192.168.10.70", 7100);
                     in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                     out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
@@ -92,7 +92,7 @@ public class MainActivity2 extends AppCompatActivity {
                                                 intent.putExtras(bundle);
                                                 startActivity(intent);
                                                 //closeSocketAndOpenActivity2();
-                                                Toast.makeText(MainActivity2.this, value, Toast.LENGTH_LONG).show();
+                                                Toast.makeText(MainActivity2.this, "register as "+message, Toast.LENGTH_LONG).show();
                                             }
                                         });
                                     } else if (key.equals("login") && !value.equals("error")&& !value.equals("No Data")) {
@@ -104,7 +104,7 @@ public class MainActivity2 extends AppCompatActivity {
                                                 Bundle bundle = new Bundle();
                                                 String message = value;
                                                 bundle.putString("key", message);
-                                                Toast.makeText(MainActivity2.this, value, Toast.LENGTH_LONG).show();
+                                                Toast.makeText(MainActivity2.this, "login as "+message, Toast.LENGTH_LONG).show();
                                                 Intent intent = new Intent(MainActivity2.this, MainActivity3.class);
                                                 intent.putExtras(bundle);
                                                 startActivity(intent);

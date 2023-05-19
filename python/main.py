@@ -1,29 +1,19 @@
-import multiprocessing
 from gui import main as gui_main
 from sockett import main as socket_main
-from queue import Queue
-import os
+import threading
+
+def main():
+    # 建立兩個 thread 物件，分別代表 run_socket() 與 run_gui()。
+    thread1 = threading.Thread(target=socket_main)
+    thread2 = threading.Thread(target=gui_main)
+
+    # 開始執行這兩個 threads。
+    thread1.start()
+    thread2.start()
+
+    # 主程式會在這裡等待所有 threads 完成後再繼續。
+    thread1.join()
+    thread2.join()
+
 if __name__ == "__main__":
-    
-    #message_queue = multiprocessing.Queue()
-    # try:
-    #     previous_daemon_pid = os.getpid()  # 获取之前守护进程的PID
-    #     os.kill(previous_daemon_pid, 9)  # 终止之前守护进程
-    # except:
-    #     print("error")
-
-    # ctx = multiprocessing.get_context("spawn")  # 获取多进程上下文
-    # # manager = ctx.Manager()
-    # # message_queue = manager.Queue()  # 使用Manager创建队列
-    
-    gui_process = multiprocessing.Process(target=gui_main) #,args=(message_queue,))
-    socket_process = multiprocessing.Process(target=socket_main) #,args=(message_queue,))
-
-    # 将主进程设置为非守护进程
-    multiprocessing.current_process().daemon = False
-
-    gui_process.start()
-    socket_process.start()
-
-    gui_process.join()
-    socket_process.join()
+    main()
