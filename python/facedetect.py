@@ -38,9 +38,9 @@ def train_model():
     face_recognizer.write(model_file)
 
 def register(user_name):
-    print(user_name_to_label)
+    #print(user_name_to_label)
     global next_label
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(1)
     count = 0
     islog=0
     while count < 10:
@@ -59,16 +59,16 @@ def register(user_name):
 
             # 儲存臉部的影像
             roi_gray = cv2.resize(gray[y:y+h, x:x+w], (200, 200))  # 將每張圖片調整為200x200的大小
-            
-            label, confidence = face_recognizer.predict(roi_gray)
-            if confidence<60:
-                for user_name, user_label in user_name_to_label.items():
-                    if user_label == label:
-                        print(user_name,"has been registed")
-                        islog=1
-                        break
-            else:
-                islog=0
+            if user_name_to_label:
+                label, confidence = face_recognizer.predict(roi_gray)
+                if confidence<60:
+                    for user_name, user_label in user_name_to_label.items():
+                        if user_label == label:
+                            print(user_name,"has been registed")
+                            islog=1
+                            break
+                else:
+                    islog=0
             if islog:
                 break
             if user_name not in user_name_to_label:
@@ -76,6 +76,8 @@ def register(user_name):
                 next_label += 1
             face_data.append(roi_gray)
             face_labels.append(user_name_to_label[user_name])
+            if count == 1:
+                cv2.imwrite(f"user_images/{user_name}.jpg", roi_gray)
             count += 1
             if count >= 10: 
                 break
@@ -94,12 +96,15 @@ def register(user_name):
     # 更新臉部辨識模型
     if islog==0:
         train_model()
+        return "success" 
+    else:
+        return user_name + " has been registed"
 
 def login():
     if not face_data:
         print("無資料")
-        return
-    cap = cv2.VideoCapture(0)
+        return "No Data"
+    cap = cv2.VideoCapture(1)
     islog=1
     while islog:
         ret, frame = cap.read()
@@ -114,10 +119,12 @@ def login():
                 for user_name, user_label in user_name_to_label.items():
                     if user_label == label:
                         print("Logged in as", user_name)
+                        message = "Logged in as "+user_name
                         islog=0
                         break
             else:
                 print("查無會員")
+                message = "no user"
                 islog=0
                 break
         cv2.imshow('frame', frame)
@@ -125,6 +132,7 @@ def login():
             break
     cap.release()
     cv2.destroyAllWindows()
+    return message
 
 def delete_user(user_name):
     if user_name not in user_name_to_label:
@@ -151,16 +159,17 @@ def delete_user(user_name):
     face_recognizer.write(model_file)
     print("刪除成功")
 
-while True:
-    user_input = input("Enter '1' for register or '2' for login or '3' for delete: ")
-    if user_input == "1":
-        user_name = input("Enter user name: ")
-        register(user_name)
-    elif user_input == "2":
-        login()
-    elif user_input == "3":
-        user_name = input("Enter user name: ")
-        delete_user(user_name)
-    else:
-        print("Invalid input, please try again.")
-        break
+if __name__ == '__main__':
+    while True:
+        user_input = input("Enter '1' for register or '2' for login or '3' for delete: ")
+        if user_input == "1":
+            user_name = input("Enter user name: ")
+            register(user_name)
+        elif user_input == "2":
+            login()
+        elif user_input == "3":
+            user_name = input("Enter user name: ")
+            delete_user(user_name)
+        else:
+            print("Invalid input, please try again.")
+            break

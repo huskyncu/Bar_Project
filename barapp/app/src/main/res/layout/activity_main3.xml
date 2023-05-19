@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/music_text"
+        android:layout_width="162dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginBottom="636dp"
+        android:text="Hello World!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/music_btn"
+        android:layout_width="161dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="20dp"
+        android:text="點歌"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/music_text" />
+
+    <Button
+        android:id="@+id/register_btn"
+        android:layout_width="101dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="113dp"
+        android:layout_marginTop="39dp"
+        android:text="會員註冊"
+        app:layout_constraintStart_toEndOf="@+id/music_text"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/login_btn"
+        android:layout_width="102dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="112dp"
+        android:text="登入"
+        app:layout_constraintStart_toEndOf="@+id/music_btn"
+        app:layout_constraintTop_toBottomOf="@+id/register_btn" />
+
+    <Button
+        android:id="@+id/pay_btn"
+        android:layout_width="162dp"
+        android:layout_height="167dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="105dp"
+        android:text="我要結帳"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/music_btn" />
+
+    <Button
+        android:id="@+id/order_btn"
+        android:layout_width="162dp"
+        android:layout_height="167dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="108dp"
+        android:text="我要點酒"
+        app:layout_constraintStart_toEndOf="@+id/pay_btn"
+        app:layout_constraintTop_toBottomOf="@+id/login_btn" />
+
+    <Button
+        android:id="@+id/speech_btn"
+        android:layout_width="112dp"
+        android:layout_height="106dp"
+        android:layout_marginStart="149dp"
+        android:layout_marginTop="70dp"
+        android:text="說話"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pay_btn" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
