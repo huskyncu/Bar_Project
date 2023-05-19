@@ -20,59 +20,69 @@
     * app
     * socket client
     * speech ai
+    * 註冊跟VIP辨識
 * python
     * socket server
     * 點擊.bat檔即可執行server程式。
     * tkinter
-    * open cv qrcode 與人臉辨識
+    * open cv qrcode
+    * opencv 人臉辨識
     * read qr code
     * python download csv
 * database
     * firebase
 
-## 外場架構
+## 硬體架構
 ```mermaid
 graph TD;
 實體酒吧-->實體arduino;
 實體酒吧-->軟體android;
 實體arduino-->天窗;
 實體arduino-->大門;
-鏡頭-->python_server-->感測開門;
 軟體android-->顧客手機app;
-員工模式;
 天窗-->溫溼度感測器-->|如果濕度大於90%|使用馬達開窗;
 溫溼度感測器-->|如果濕度小於90%|使用馬達關窗;
-感測開門-->|如果偵測到有人|使用伺服馬達關門;
-大門-->感測開門-->|如果偵測到有人|使用伺服馬達開門-->|亮LED燈|帶位;
-帶位-->到座位上後-->|偵測坐下來的距離小於10|LED關燈
-顧客手機app-->顧客模式;
-顧客模式-->點歌-->|socket|pythonserver;
-顧客模式-->點餐-->語音化服務-->客製化點酒-->|socket|pythonserver;
-員工模式-->|本地端|pythonserver;
+大門-->感測開門-->|偵測坐下來的距離大於10|使用伺服馬達開門-->|亮LED燈|帶位;
+帶位-->到座位上後-->|偵測坐下來的距離小於10|LED關燈-->|python_socket|顧客手機app;
+感測開門-->|偵測坐下來的距離小於10|使用伺服馬達關門;
 ```
 
-## 點餐 app 架構
+## 點餐App 
+### 程式架構
+```mermaid
+graph TD;
+顧客手機app-->顧客模式;
+顧客模式-->點歌-->|socket|pythonserver;
+顧客模式-->註冊與登入-->點餐-->語音化服務-->|socket|pythonserver;
+註冊與登入-->|socket|python-->鏡頭人臉辨識-->|socket|python-->註冊與登入;
+點餐-->客製化點酒-->|socket|pythonserver;
+```
 
-### 一開始畫面：
-輸入ip跟port
+### 點餐 app 架構
 
-### 主畫面：
+#### 一開始畫面：
+坐下來後才能開始使用app
+
+#### 第二個畫面：
+註冊與登入
+
+#### 第三個畫面：
 
 * 語音化服務按鈕
 * 點餐頁面按鈕
 
-### 語音化畫面
+#### 語音化畫面
 透過語音化跟傳送socket到server，再傳到資料庫，然後再透過socket傳送到app。
 
-### 點擊畫面
+#### 點擊畫面
 * 一般點酒按鈕
     * 顯示菜單(手動)
 * 客製化按紐
     * 酸或甜
     * 重還輕
 
-把所有選擇打包成json透過socket傳送到app。
-
+py->android 用json 傳送
+android -> py用文字傳送
 ## 內場架構
 ```mermaid
 graph TD
@@ -102,6 +112,8 @@ python_server-->|firebase|收支資料表
 * ANDROID APP 客製化點酒
 * 完成 android app socket 連接 python GUI
 * 語音化訊息處理
+* arduino 偵測坐下後才能用app點餐
+* opencv 人臉辨識
 
 ### 第三次開會
 * android app點歌與python 串接 youtube點歌
@@ -112,5 +124,3 @@ python_server-->|firebase|收支資料表
 
 ## 未來展望
 * 搭配line bot
-
-* 搭配人臉辨識
