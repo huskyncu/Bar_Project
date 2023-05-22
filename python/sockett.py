@@ -5,6 +5,7 @@ from firebase import firebase
 from facedetect import register,login
 from face_identify import identify
 import multiprocessing
+from gpt import openai_api
 
 # 服务器配置
 HOST = '192.168.10.70'  # 服务器IP地址
@@ -92,6 +93,17 @@ def handle_client(client_socket, client_address):
                         for client in clients:
                             if client == client_socket:
                                 my_dict = v  # create your dictionary here
+                                json_data = json.dumps(my_dict)  # convert dictionary to json
+                                json_data +='\n'
+                                client.sendall(json_data.encode('utf-8'))  # send json data
+                elif(command[0]=='speak'):
+                    v=openai_api(command[1])
+                    print(v)
+                    with lock:
+                    # 向所有其他客户端广播数据
+                        for client in clients:
+                            if client == client_socket:
+                                my_dict = {"speak": v}  # create your dictionary here
                                 json_data = json.dumps(my_dict)  # convert dictionary to json
                                 json_data +='\n'
                                 client.sendall(json_data.encode('utf-8'))  # send json data
