@@ -99,26 +99,26 @@ python_server-->|firebase|收支資料表
 
 ### 第一次開會(5/8)
 
-* 完成 大門與帶位的arduino(功能建立)
-* python GUI 撰寫完成
-* python GUI 能夠串接firebase資料庫
-* python GUI 能下載csv
-* python GUI opencv qrcode 圖像辨識
+- [x] 完成 大門與帶位的arduino(功能建立)
+- [x] python GUI 撰寫完成
+- [x] python GUI 能夠串接firebase資料庫
+- [x] python GUI 能下載csv
+- [x] python GUI opencv qrcode 圖像辨識
 
 ### 第二次開會
-* android app 撰寫完成
-* ANDROID APP 客製化點酒
-* 完成 android app socket 連接 python GUI
-* 語音化訊息處理
-* arduino 偵測坐下後才能用app點餐
-* opencv 人臉辨識
+- [x] android app 撰寫完成
+- [ ] ANDROID APP 客製化點酒
+- [x] 完成 android app socket 連接 python GUI
+- [ ] 語音化訊息處理
+- [x] arduino 偵測坐下後才能用app點餐
+- [x] opencv 人臉辨識
 
 ### 第三次開會
-* android app點歌與python 串接 youtube點歌
+- [ ] android app點歌與python 串接 youtube點歌
 
 ### 第四次開會
-* 天窗 arduino 處理(功能建立)
-* 實行美工，將所有硬體安裝進模型裡面。
+- [ ] 天窗 arduino 處理(功能建立)
+- [ ] 實行美工，將所有硬體安裝進模型裡面。
 
 ## 未來展望
 * 搭配line bot
