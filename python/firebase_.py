@@ -19,3 +19,17 @@ def insert_ele(db_name,data):
     now = datetime.datetime.now(tz=datetime.timezone(datetime.timedelta(hours=8)))
     fdb.put('/money/event',str(now.strftime('%Y,%m,%d %H:%M:%S')),{"type":"outcome","event":"買"+str(data['name'])+"100ml","value":int(data['price'])})
     print(result)
+def insert_wine(data):
+    url = "https://python-database-3b3f8-default-rtdb.firebaseio.com/"
+    fdb = firebase.FirebaseApplication(url, None) 
+    wine_result = fdb.get('/sale',None)
+    income=0
+    for wine,price in wine_result.items():
+        if wine==data:
+            income=price
+    money_result = fdb.get('/money/total',None)
+    fdb.put('/money',"total",money_result+income)
+    now = datetime.datetime.now(tz=datetime.timezone(datetime.timedelta(hours=8)))
+    fdb.put('/money/event',str(now.strftime('%Y,%m,%d %H:%M:%S')),{'type':'income','event':'入帳','value':income})
+    #delete 酒材料from 冰箱
+#def delete

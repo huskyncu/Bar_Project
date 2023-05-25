@@ -44,17 +44,17 @@
         android:layout_height="167dp"
         android:layout_marginStart="21dp"
         android:layout_marginTop="105dp"
-        android:text="我要結帳"
+        android:text="我要登出"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/music_btn" />
 
     <Button
         android:id="@+id/order_btn"
         android:layout_width="162dp"
-        android:layout_height="167dp"
-        android:layout_marginStart="50dp"
+        android:layout_height="81dp"
+        android:layout_marginStart="48dp"
         android:layout_marginTop="108dp"
-        android:text="我要點酒"
+        android:text="客製化點酒"
         app:layout_constraintStart_toEndOf="@+id/pay_btn"
         app:layout_constraintTop_toBottomOf="@+id/detail_btn" />
 
@@ -64,7 +64,7 @@
         android:layout_height="106dp"
         android:layout_marginStart="149dp"
         android:layout_marginTop="70dp"
-        android:text="說話"
+        android:text="語音服務"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pay_btn" />
 
@@ -80,12 +80,32 @@
 
     <TextView
         android:id="@+id/tvText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="177dp"
-        android:layout_marginBottom="98dp"
-        android:text="TextView"
+        android:layout_width="37dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginBottom="44dp"
+        android:text="0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/menu_btn"
+        android:layout_width="164dp"
+        android:layout_height="76dp"
+        android:layout_marginStart="47dp"
+        android:layout_marginTop="9dp"
+        android:text="酒單"
+        app:layout_constraintStart_toEndOf="@+id/pay_btn"
+        app:layout_constraintTop_toBottomOf="@+id/order_btn" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="65dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="232dp"
+        android:text="已付金額:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pay_btn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -59,6 +59,7 @@ def register(user_name):
 
             # 儲存臉部的影像
             roi_gray = cv2.resize(gray[y:y+h, x:x+w], (200, 200))  # 將每張圖片調整為200x200的大小
+            userimg=cv2.resize(frame[y:y+h, x:x+w], (200, 200))
             if user_name_to_label:
                 label, confidence = face_recognizer.predict(roi_gray)
                 if confidence<60:
@@ -77,7 +78,7 @@ def register(user_name):
             face_data.append(roi_gray)
             face_labels.append(user_name_to_label[user_name])
             if count == 1:
-                cv2.imwrite(f"user_images/{user_name}.jpg", roi_gray)
+                cv2.imwrite(f"user_images/{user_name}.jpg", userimg)
             count += 1
             if count >= 10: 
                 break
@@ -114,12 +115,13 @@ def login():
         for (x,y,w,h) in faces:
             cv2.rectangle(frame,(x,y),(x+w,y+h),(255,0,0),2)
             roi_gray = gray[y:y+h, x:x+w]
+            userimg=frame[y:y+h, x:x+w]
             label, confidence = face_recognizer.predict(roi_gray)
             if confidence<60:
                 for user_name, user_label in user_name_to_label.items():
                     if user_label == label:
                         print("Logged in as", user_name)
-                        cv2.imwrite(f"user_images/{user_name}.jpg", roi_gray)
+                        cv2.imwrite(f"user_images/{user_name}.jpg", userimg)
                         message = "Logged in as "+user_name
                         islog=0
                         break

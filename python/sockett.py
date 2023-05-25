@@ -6,6 +6,7 @@ from facedetect import register,login
 from face_identify import identify
 import multiprocessing
 from gpt import openai_api
+import firebase_ 
 
 # 服务器配置
 HOST = '192.168.10.70'  # 服务器IP地址
@@ -107,6 +108,12 @@ def handle_client(client_socket, client_address):
                                 json_data = json.dumps(my_dict)  # convert dictionary to json
                                 json_data +='\n'
                                 client.sendall(json_data.encode('utf-8'))  # send json data
+                elif(command[0]=='menu'):
+                    vs=command[1].split(";")
+                    for v in vs:
+                        firebase_.insert_wine(v)
+                elif(command[0]=='order'):
+                    firebase_.insert_wine(command[1])
             else:
                 # 客户端断开连接
                 remove_client(client_socket)

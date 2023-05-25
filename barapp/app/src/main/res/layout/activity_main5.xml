@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity5">
+
+    <TextView
+        android:id="@+id/username_m"
+        android:layout_width="105dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="36dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/username_m3"
+        android:layout_width="105dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="152dp"
+        android:text="目前用戶："
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/cur_box"
+        android:layout_width="120dp"
+        android:layout_height="59dp"
+        android:layout_marginEnd="164dp"
+        android:text="柯夢波丹"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sex_box" />
+
+    <CheckBox
+        android:id="@+id/v7_box"
+        android:layout_width="120dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="91dp"
+        android:layout_marginEnd="164dp"
+        android:text="伏特加七喜"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/vl_box"
+        android:layout_width="120dp"
+        android:layout_height="59dp"
+        android:layout_marginEnd="164dp"
+        android:text="伏特加萊姆"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/v7_box" />
+
+    <CheckBox
+        android:id="@+id/sun_box"
+        android:layout_width="120dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="164dp"
+        android:text="龍舌蘭日出"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/long_box" />
+
+    <CheckBox
+        android:id="@+id/sex_box"
+        android:layout_width="120dp"
+        android:layout_height="59dp"
+        android:layout_marginEnd="164dp"
+        android:text="性慾海灘"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wc_box" />
+
+    <CheckBox
+        android:id="@+id/gin_box"
+        android:layout_width="120dp"
+        android:layout_height="59dp"
+        android:layout_marginEnd="164dp"
+        android:text="琴通寧"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wind_box" />
+
+    <CheckBox
+        android:id="@+id/long_box"
+        android:layout_width="120dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="164dp"
+        android:text="長島冰茶"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gin_box" />
+
+    <CheckBox
+        android:id="@+id/wc_box"
+        android:layout_width="120dp"
+        android:layout_height="59dp"
+        android:layout_marginEnd="164dp"
+        android:text="威士忌可樂"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vl_box" />
+
+    <CheckBox
+        android:id="@+id/wind_box"
+        android:layout_width="120dp"
+        android:layout_height="59dp"
+        android:layout_marginEnd="164dp"
+        android:text="海風"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cur_box" />
+
+    <Button
+        android:id="@+id/submit_m"
+        android:layout_width="106dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="152dp"
+        android:layout_marginEnd="153dp"
+        android:layout_marginBottom="41dp"
+        android:text="submit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

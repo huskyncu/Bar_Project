@@ -46,7 +46,7 @@ import java.util.Locale;
 
 public class MainActivity3 extends AppCompatActivity implements TextToSpeech.OnInitListener{
 
-    private Button music_btn, detail_btn,  pay_btn, order_btn, speech_btn;
+    private Button music_btn, detail_btn,  pay_btn, order_btn,menu_btn, speech_btn;
     private TextView music_text,username;
     protected static final int RESULT_SPEECH = 1;
     private ImageButton btnSpeak;
@@ -68,6 +68,7 @@ public class MainActivity3 extends AppCompatActivity implements TextToSpeech.OnI
         detail_btn = findViewById(R.id.detail_btn);
         pay_btn = findViewById(R.id.pay_btn);
         order_btn = findViewById(R.id.order_btn);
+        menu_btn = findViewById(R.id.menu_btn);
         speech_btn = findViewById(R.id.speech_btn);
         music_text = findViewById(R.id.music_text);
         username = findViewById(R.id.username);
@@ -100,7 +101,6 @@ public class MainActivity3 extends AppCompatActivity implements TextToSpeech.OnI
                 Bundle bundle = new Bundle();
                 String message = username.getText().toString();
                 bundle.putString("key", message);
-                // 执行打开Activity2的代码
                 Intent intent = new Intent(MainActivity3.this, MainActivity4.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -115,7 +115,23 @@ public class MainActivity3 extends AppCompatActivity implements TextToSpeech.OnI
         order_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                music_text.setText("order_btn clicked");
+                Bundle bundle = new Bundle();
+                String message = username.getText().toString();
+                bundle.putString("key", message);
+                Intent intent = new Intent(MainActivity3.this, MainActivity6.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+        menu_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                String message = username.getText().toString();
+                bundle.putString("key", message);
+                Intent intent = new Intent(MainActivity3.this, MainActivity5.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
         tts = new TextToSpeech(this, this);
@@ -131,15 +147,12 @@ public class MainActivity3 extends AppCompatActivity implements TextToSpeech.OnI
                     public void run() {
                         promptSpeechInput();
                     }
-                }, 750); // 延遲 3 秒
+                }, 1300); // 延遲 3 秒
 
 
 
             }
         });
-
-
-
 
     }
     private void sendAndReceiveFromServer(String text) {
