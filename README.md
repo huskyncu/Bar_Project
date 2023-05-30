@@ -36,10 +36,7 @@
 ```mermaid
 graph TD;
 實體酒吧-->實體arduino;
-實體arduino-->天窗;
 實體arduino-->大門;
-天窗-->溫溼度感測器-->|如果濕度大於90%|使用馬達開窗;
-溫溼度感測器-->|如果濕度小於90%|使用馬達關窗;
 大門-->感測開門-->|偵測坐下來的距離大於10|使用伺服馬達開門-->|亮LED燈|帶位;
 帶位-->到座位上後-->|偵測坐下來的距離小於10|LED關燈-->|python_socket|顧客手機app;
 感測開門-->|偵測坐下來的距離小於10|使用伺服馬達關門;
@@ -86,7 +83,6 @@ android -> py用文字傳送
 graph TD
 冰箱資料表-->|如果材料夠|從酒單挑出酒品並從冰箱扣減材料_firebase-->|socket|在手機app傳送酒的照片當作上酒--->|firebase收入記帳|收支資料表;
 收支資料表-->可下載收支excel;
-python_server-->audio_frame;
 python_server-->|firebase|冰箱資料表-->|如果材料不夠|提醒買缺的材料-->收支資料表-->|錢夠買完放冰箱|冰箱;
 python_server-->|firebase|收支資料表
 冰箱-->|python介面與qrcode辨識|掃qrcode放冰箱-->歸類-->|firebase|冰箱資料表;
@@ -107,27 +103,24 @@ python_server-->|firebase|收支資料表
 
 ### 第二次開會
 - [x] android app 撰寫完成
-- [ ] ANDROID APP 客製化點酒
+- [x] ANDROID APP 客製化點酒
 - [x] 完成 android app socket 連接 python GUI
-- [ ] 語音化訊息處理
+- [x] 語音化訊息處理
 - [x] arduino 偵測坐下後才能用app點餐
 - [x] opencv 人臉辨識
 
-### 第三次開會
-- [ ] android app點歌與python 串接 youtube點歌
-
-### 第四次開會
-- [ ] 天窗 arduino 處理(功能建立)
+### 期末進度
 - [ ] 實行美工，將所有硬體安裝進模型裡面。
 
 ## 未來展望
 * 搭配line bot
-
+* 天窗
+* 音樂
 
 ## 製作困難
 
 ### 5/8
-如何數位雙聲？
+如何讓客戶知道我們的產品實際上在做什麼？
 
 使用ppt，同步操作demo
 
@@ -141,3 +134,7 @@ python_server-->|firebase|收支資料表
 如何在server gui顯示來自socket的訊息？
 
 解決方式：開多執行緒
+
+### 5/30
+如何在不同詞彙的狀況下知道使用者的語意？
+* 使用中文語意套件SnowNLP偵測
