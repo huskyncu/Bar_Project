@@ -5,6 +5,7 @@ import refrige
 import menu
 import open
 import check
+from user import user_data
 
 def main():
     global text
@@ -18,15 +19,17 @@ def main():
     wine_db_button = tk.Button(wnd, text="看酒單",underline=-1,command=menu.menu)
     wine_db_button.place(relx=0.8,rely=0.6,anchor="center")
     check_button = tk.Button(wnd, text="查看收支",underline=-1,command=check.check)
-    check_button.place(relx=0.3,rely=0.9,anchor="center")
+    check_button.place(relx=0.2,rely=0.9,anchor="center")
     label = tk.Label(wnd,text='我是通知框')
     label.place(relx=0.5,rely=0.25,anchor="center")
     text  =  tk.Text(wnd,width='50',height='5' )
     text. place(relx=0.5,rely=0.3,anchor='n')
     label_q = tk.Label(wnd,text='若不掃描請按q')
     label_q.place(relx=0.5,rely=0.7,anchor="center")
+    user_button = tk.Button(wnd, text="查看使用者資料",underline=-1,command=user_data)
+    user_button.place(relx=0.5,rely=0.9,anchor="center")
     close_button = tk.Button(wnd, text="close",underline=-1,command=wnd.destroy)
-    close_button.place(relx=0.7,rely=0.9,anchor="center")
+    close_button.place(relx=0.8,rely=0.9,anchor="center")
     def update_gui():
         url = "https://python-database-3b3f8-default-rtdb.firebaseio.com/"
         fdb = firebase.FirebaseApplication(url, None)
