@@ -17,7 +17,7 @@
         android:id="@+id/identify_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="人臉分析" />
+        android:text="資料分析" />
 
     <TextView
         android:id="@+id/responseTextView"
@@ -26,6 +26,7 @@
         android:layout_marginTop="16dp"
         android:text="username"
         android:textAlignment="center" />
+
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"

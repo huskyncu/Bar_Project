@@ -97,6 +97,7 @@ def register(user_name):
     # 更新臉部辨識模型
     if islog==0:
         train_model()
+        
         return user_name 
     else:
         return "error"

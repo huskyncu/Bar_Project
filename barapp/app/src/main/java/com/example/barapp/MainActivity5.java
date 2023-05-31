@@ -33,6 +33,7 @@ public class MainActivity5 extends AppCompatActivity {
     private CheckBox sun_box;
     private Button submit_m;
 
+    int sum=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,11 +60,15 @@ public class MainActivity5 extends AppCompatActivity {
 
             // 从Bundle中获取字符串数据
             String message = bundle.getString("key");
-
+            String message2 = bundle.getString("key2");
             // 使用获取到的字符串数据进行操作
             if (message != null) {
                 // 执行操作
                 username_m.setText(message);
+            }
+            if (message2 != null) {
+                // 执行操作
+                sum+=Integer.parseInt(message2);
             }
         }
 
@@ -182,6 +187,7 @@ public class MainActivity5 extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 String message = username_m.getText().toString();
                 bundle.putString("key", message);
+                bundle.putString("key2", Integer.toString(sum));
                 Intent intent = new Intent(MainActivity5.this, MainActivity3.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -201,11 +207,15 @@ public class MainActivity5 extends AppCompatActivity {
         checkBoxes.add((CheckBox) findViewById(R.id.wind_box));
         checkBoxes.add((CheckBox) findViewById(R.id.long_box));
         // Add more CheckBoxes to your list
-
         StringBuilder checkedWines = new StringBuilder();
         for (CheckBox checkbox : checkBoxes) {
             if (checkbox.isChecked()) {
                 checkedWines.append(checkbox.getText().toString()).append(";");
+                if(checkbox.getText().toString().equals("性慾海灘") || checkbox.getText().toString().equals("柯夢波丹") || checkbox.getText().toString().equals("長島冰茶") || checkbox.getText().toString().equals("威士忌可樂")){
+                    sum+=400;
+                }else{
+                    sum+=200;
+                }
             }
         }
 
@@ -222,7 +232,7 @@ public class MainActivity5 extends AppCompatActivity {
                 try {
                     Socket socket = new Socket("192.168.10.70", 7100);
                     PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
-                    out.println("menu "+checkedWinesStr);
+                    out.println("menu "+username_m.getText().toString()+" "+checkedWinesStr);
                     out.flush();
                     socket.close();
                 } catch (IOException e) {

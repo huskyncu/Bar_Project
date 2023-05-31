@@ -6,47 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/music_text"
-        android:layout_width="162dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="45dp"
-        android:layout_marginBottom="636dp"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <Button
-        android:id="@+id/music_btn"
-        android:layout_width="161dp"
-        android:layout_height="61dp"
-        android:layout_marginStart="20dp"
-        android:text="點歌"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/music_text" />
-
     <Button
         android:id="@+id/detail_btn"
         android:layout_width="102dp"
         android:layout_height="55dp"
-        android:layout_marginStart="112dp"
+        android:layout_marginStart="293dp"
         android:layout_marginTop="1dp"
         android:text="詳細內容"
-        app:layout_constraintStart_toEndOf="@+id/music_btn"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/username" />
 
     <Button
-        android:id="@+id/pay_btn"
+        android:id="@+id/logout_btn"
         android:layout_width="162dp"
         android:layout_height="167dp"
         android:layout_marginStart="21dp"
-        android:layout_marginTop="105dp"
+        android:layout_marginTop="261dp"
         android:text="我要登出"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/music_btn" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/order_btn"
@@ -55,7 +33,7 @@
         android:layout_marginStart="48dp"
         android:layout_marginTop="108dp"
         android:text="客製化點酒"
-        app:layout_constraintStart_toEndOf="@+id/pay_btn"
+        app:layout_constraintStart_toEndOf="@+id/logout_btn"
         app:layout_constraintTop_toBottomOf="@+id/detail_btn" />
 
     <Button
@@ -66,16 +44,16 @@
         android:layout_marginTop="70dp"
         android:text="語音服務"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pay_btn" />
+        app:layout_constraintTop_toBottomOf="@+id/logout_btn" />
 
     <TextView
         android:id="@+id/username"
         android:layout_width="102dp"
         android:layout_height="48dp"
-        android:layout_marginStart="115dp"
+        android:layout_marginStart="296dp"
         android:layout_marginTop="49dp"
         android:text="username"
-        app:layout_constraintStart_toEndOf="@+id/music_text"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -95,7 +73,7 @@
         android:layout_marginStart="47dp"
         android:layout_marginTop="9dp"
         android:text="酒單"
-        app:layout_constraintStart_toEndOf="@+id/pay_btn"
+        app:layout_constraintStart_toEndOf="@+id/logout_btn"
         app:layout_constraintTop_toBottomOf="@+id/order_btn" />
 
     <TextView
@@ -106,6 +84,6 @@
         android:layout_marginTop="232dp"
         android:text="已付金額:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pay_btn" />
+        app:layout_constraintTop_toBottomOf="@+id/logout_btn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

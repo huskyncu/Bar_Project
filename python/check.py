@@ -5,6 +5,9 @@ from tkinter import ttk,messagebox
 from firebase import firebase
 def check():
     contacts = []
+    def close():
+        fdb.put('/','ppt',8)
+        query_wnd.destroy()
     def download():
         import os
         import openpyxl
@@ -29,7 +32,7 @@ def check():
     query_wnd. title("我是收支表")
     url = "https://python-database-3b3f8-default-rtdb.firebaseio.com/"
     fdb = firebase.FirebaseApplication(url, None)
-
+    fdb.put('/','ppt',15)
     # 实例化控件，设置表头样式和标题文本
     columns = ("日期","事件", "收入",'支出')
     headers = ("日期","事件", "收入",'支出')
@@ -59,6 +62,6 @@ def check():
     label_q.place(relx=0.5,rely=0.8,anchor="center")
     download_button = tk.Button(query_wnd, text="下載報表",underline=-1,command=download)
     download_button.place(relx=0.3,rely=0.9,anchor="center")
-    close_button = tk.Button(query_wnd, text="close",underline=-1,command=query_wnd.destroy)
+    close_button = tk.Button(query_wnd, text="close",underline=-1,command=close)
     close_button.place(relx=0.7,rely=0.9,anchor="center")
     query_wnd.mainloop()

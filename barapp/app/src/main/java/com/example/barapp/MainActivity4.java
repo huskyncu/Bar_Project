@@ -26,7 +26,7 @@ public class MainActivity4 extends AppCompatActivity {
 
     private Button sendButton;
     private Button identify_btn;
-    private TextView responseTextView;
+    private TextView responseTextView,money;
     private ListView listView;
     private ArrayList<String> listData = new ArrayList<>();
     private ArrayAdapter<String> adapter;
@@ -34,9 +34,8 @@ public class MainActivity4 extends AppCompatActivity {
     private Socket socket;
     private BufferedReader in;
     private BufferedWriter out;
-
+    private String moneys;
     private Handler handler = new Handler(Looper.getMainLooper());
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +47,7 @@ public class MainActivity4 extends AppCompatActivity {
         listView = findViewById(R.id.listView);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listData);
         listView.setAdapter(adapter);
+
         // 获取传递过来的Intent
         Intent intent = getIntent();
         // 检查Intent是否包含附带的Bundle
@@ -57,13 +57,14 @@ public class MainActivity4 extends AppCompatActivity {
 
             // 从Bundle中获取字符串数据
             String message = bundle.getString("key");
-
+            moneys = bundle.getString("key2");
             // 使用获取到的字符串数据进行操作
             if (message != null) {
                 // 执行操作
                 responseTextView.setText(message);
 
             }
+
         }
 
         // 當用戶點擊發送按鈕時，將用戶輸入的消息通過 socket 傳遞到 Python 服務器
@@ -73,6 +74,7 @@ public class MainActivity4 extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 String message = responseTextView.getText().toString();
                 bundle.putString("key", message);
+                bundle.putString("key2",moneys);
                 // 执行打开Activity2的代码
                 Intent intent = new Intent(MainActivity4.this, MainActivity3.class);
                 intent.putExtras(bundle);

@@ -3,6 +3,7 @@ import webbrowser
 import firebase_
 import tkinter as tk
 from tkinter import ttk,messagebox
+from firebase import firebase
 
 def read_code(img):
     qrcode = cv2.QRCodeDetector()                        # 建立 QRCode 偵測器
@@ -18,6 +19,9 @@ def read_code(img):
 
 
 def open_():
+    url = "https://python-database-3b3f8-default-rtdb.firebaseio.com/"
+    fdb = firebase.FirebaseApplication(url, None)
+    fdb.put('/','ppt',14)
     # 選擇第二隻攝影機
     cap = cv2.VideoCapture(0)
         # 從攝影機擷取一張影像
@@ -37,6 +41,6 @@ def open_():
     # 釋放攝影機
     
     cap.release()
-
+    fdb.put('/','ppt',8)
     # 關閉所有 OpenCV 視窗
     cv2.destroyAllWindows()

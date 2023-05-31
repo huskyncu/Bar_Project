@@ -1,6 +1,5 @@
 package com.example.barapp;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -14,7 +13,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.widget.Toast;
@@ -34,20 +32,11 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Locale;
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.speech.RecognitionListener;
-import android.speech.RecognizerIntent;
-import android.speech.tts.TextToSpeech;
-import android.view.View;
-import android.widget.Button;
-import java.util.Locale;
 
 public class MainActivity3 extends AppCompatActivity implements TextToSpeech.OnInitListener{
 
-    private Button music_btn, detail_btn,  pay_btn, order_btn,menu_btn, speech_btn;
-    private TextView music_text,username;
+    private Button detail_btn,  logout_btn , order_btn,menu_btn, speech_btn;
+    private TextView username;
     protected static final int RESULT_SPEECH = 1;
     private ImageButton btnSpeak;
     private TextView tvText,tvText2;
@@ -58,21 +47,19 @@ public class MainActivity3 extends AppCompatActivity implements TextToSpeech.OnI
     private  BufferedWriter out;
     private BufferedReader in;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
 
-        music_btn = findViewById(R.id.music_btn);
         detail_btn = findViewById(R.id.detail_btn);
-        pay_btn = findViewById(R.id.pay_btn);
+        logout_btn = findViewById(R.id.logout_btn);
         order_btn = findViewById(R.id.order_btn);
         menu_btn = findViewById(R.id.menu_btn);
         speech_btn = findViewById(R.id.speech_btn);
-        music_text = findViewById(R.id.music_text);
         username = findViewById(R.id.username);
         tvText2 = findViewById(R.id.tvText);
+
         // 获取传递过来的Intent
         Intent intent = getIntent();
         // 检查Intent是否包含附带的Bundle
@@ -82,42 +69,76 @@ public class MainActivity3 extends AppCompatActivity implements TextToSpeech.OnI
 
             // 从Bundle中获取字符串数据
             String message = bundle.getString("key");
-
+            String message2 = bundle.getString("key2");
             // 使用获取到的字符串数据进行操作
             if (message != null) {
                 // 执行操作
                 username.setText(message);
             }
-        }
-        music_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                music_text.setText("music_btn clicked");
+            if (message2 != null) {
+                // 执行操作
+                int num1=Integer.parseInt(tvText2.getText().toString());
+                int num2=Integer.parseInt(message2)+num1;
+                tvText2.setText(Integer.toString(num2));
             }
-        });
+        }
         detail_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 String message = username.getText().toString();
+                String message2 = tvText2.getText().toString();
                 bundle.putString("key", message);
+                bundle.putString("key2",message2 );
                 Intent intent = new Intent(MainActivity3.this, MainActivity4.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
-        pay_btn.setOnClickListener(new View.OnClickListener() {
+        logout_btn .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                music_text.setText("pay_btn clicked");
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Socket socket = new Socket("192.168.10.70", 7100);
+                            PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
+                            out.println("ppt 1");
+                            out.flush();
+                            socket.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+                Bundle bundle = new Bundle();
+                Intent intent = new Intent(MainActivity3.this, MainActivity2.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
         order_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Socket socket = new Socket("192.168.10.70", 7100);
+                            PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
+                            out.println("ppt 10");
+                            out.flush();
+                            socket.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
                 Bundle bundle = new Bundle();
                 String message = username.getText().toString();
                 bundle.putString("key", message);
+                bundle.putString("key2", tvText2.getText().toString());
                 Intent intent = new Intent(MainActivity3.this, MainActivity6.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -126,9 +147,24 @@ public class MainActivity3 extends AppCompatActivity implements TextToSpeech.OnI
         menu_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Socket socket = new Socket("192.168.10.70", 7100);
+                            PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
+                            out.println("ppt 11");
+                            out.flush();
+                            socket.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
                 Bundle bundle = new Bundle();
                 String message = username.getText().toString();
                 bundle.putString("key", message);
+                bundle.putString("key2", tvText2.getText().toString());
                 Intent intent = new Intent(MainActivity3.this, MainActivity5.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -138,8 +174,7 @@ public class MainActivity3 extends AppCompatActivity implements TextToSpeech.OnI
         speech_btn .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                music_text.setText("speech_btn  clicked");
-                speakOut("你今天想幹嘛？");
+                //speakOut("你今天想幹嘛？");
 
                 // 延遲開始語音識別，確保語音識別不會將 TTS 引擎的語音誤認為使用者的語音
                 new Handler().postDelayed(new Runnable() {
@@ -148,11 +183,14 @@ public class MainActivity3 extends AppCompatActivity implements TextToSpeech.OnI
                         promptSpeechInput();
                     }
                 }, 1300); // 延遲 3 秒
-
-
-
             }
         });
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                speakOut("可點語音服務並跟app說我要點酒。");
+            }
+        }, 1000); // 延遲 1 秒
 
     }
     private void sendAndReceiveFromServer(String text) {
@@ -173,7 +211,7 @@ public class MainActivity3 extends AppCompatActivity implements TextToSpeech.OnI
                     writer = new PrintWriter(new OutputStreamWriter(outputStream, "UTF-8"), true);
 
                     // 將文字資料傳送到伺服器
-                    writer.println("speak " + text);
+                    writer.println("speak " +username.getText().toString()+" "+ text);
 
                     // 獲取輸入流，用於接收資料
                     inputStream = socket.getInputStream();
@@ -188,10 +226,24 @@ public class MainActivity3 extends AppCompatActivity implements TextToSpeech.OnI
                             String key = keys.next();
                             String value = jsonObject.getString(key);
                             runOnUiThread(new Runnable() {
+                                @SuppressLint("SetTextI18n")
                                 @Override
                                 public void run() {
-                                    tvText2.setText(value);
-                                    speakOut(value);
+                                    int num1,num2;
+                                    if(value.equals("性慾海灘") || value.equals("柯夢波丹") || value.equals("長島冰茶") || value.equals("威士忌可樂")){
+                                        num1=Integer.parseInt(tvText2.getText().toString());
+                                        num2=num1+400;
+                                        tvText2.setText(Integer.toString(num2));
+                                        speakOut("已點"+value);
+                                    }else if (value.equals("伏特加萊姆")||value.equals("海風")||value.equals("琴通寧")||value.equals("伏特加七喜")||value.equals(("龍舌蘭日出"))){
+                                        num1=Integer.parseInt(tvText2.getText().toString());
+                                        num2=num1+200;
+                                        tvText2.setText(Integer.toString(num2));
+                                        speakOut("已點"+value);
+                                    }
+                                    else{
+                                        speakOut(value);
+                                    }
                                 }
                             });
                         }
@@ -249,7 +301,6 @@ public class MainActivity3 extends AppCompatActivity implements TextToSpeech.OnI
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     sendAndReceiveFromServer(result.get(0));
                     //speakOut(result.get(0));
-
                 }
                 break;
             }
@@ -258,7 +309,7 @@ public class MainActivity3 extends AppCompatActivity implements TextToSpeech.OnI
 
     private void speakOut(String text) {
         tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
-        tvText2.setText("1");
+        //tvText2.setText("1");
     }
 
     @Override
