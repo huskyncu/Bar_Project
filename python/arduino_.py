@@ -1,5 +1,4 @@
 import serial
-from firebase_ import insert_ele
 from firebase import firebase
 import tkinter as tk
 from tkinter import ttk,messagebox
@@ -32,7 +31,7 @@ def arduino_main():
                 
         if fdb.get('/arduino/座位',None)==1:
             result = fdb.get('/user/nowip',None)
-            if result=="192.168.10.130":
+            if result=="":
                 control_servo(0) # 將馬達轉向90度
             else:
                 control_servo(180) # 將馬達轉向0度

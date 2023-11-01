@@ -125,7 +125,7 @@ public class MainActivity7 extends AppCompatActivity {
     public void sendTextToServer(String message) {
         new Thread(() -> {
             try {
-                Socket socket = new Socket("192.168.10.70", 7100);
+                Socket socket = new Socket("192.168.162.70", 7100);
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
