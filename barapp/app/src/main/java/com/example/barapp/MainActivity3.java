@@ -102,7 +102,7 @@ public class MainActivity3 extends AppCompatActivity implements TextToSpeech.OnI
                     @Override
                     public void run() {
                         try {
-                            Socket socket = new Socket("192.168.10.70", 7100);
+                            Socket socket = new Socket("192.168.162.70", 7100);
                             PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
                             out.println("ppt 1");
                             out.flush();
@@ -125,7 +125,7 @@ public class MainActivity3 extends AppCompatActivity implements TextToSpeech.OnI
                     @Override
                     public void run() {
                         try {
-                            Socket socket = new Socket("192.168.10.70", 7100);
+                            Socket socket = new Socket("192.168.162.70", 7100);
                             PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
                             out.println("ppt 10");
                             out.flush();
@@ -151,7 +151,7 @@ public class MainActivity3 extends AppCompatActivity implements TextToSpeech.OnI
                     @Override
                     public void run() {
                         try {
-                            Socket socket = new Socket("192.168.10.70", 7100);
+                            Socket socket = new Socket("192.168.162.70", 7100);
                             PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
                             out.println("ppt 11");
                             out.flush();
@@ -204,7 +204,7 @@ public class MainActivity3 extends AppCompatActivity implements TextToSpeech.OnI
                 BufferedReader reader = null;
                 try {
                     // 建立一個 Socket 連接
-                    socket = new Socket("192.168.10.70", 7100);
+                    socket = new Socket("192.168.162.70", 7100);
 
                     // 獲取輸出流，用於傳送資料
                     outputStream = socket.getOutputStream();

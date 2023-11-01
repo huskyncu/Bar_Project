@@ -1,5 +1,5 @@
 from gui import main as gui_main
-from sockett import main as socket_main
+from server_socket import main as socket_main
 from arduino_ import arduino_main as arduino_main
 from ppt import ppt as ppt_main
 import threading

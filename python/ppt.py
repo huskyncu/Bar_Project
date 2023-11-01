@@ -1,7 +1,6 @@
 import win32com.client as win32
 import pythoncom
 from firebase import firebase
-import time
 def ppt():
     pythoncom.CoInitialize()
     # 開啟PowerPoint應用程式
